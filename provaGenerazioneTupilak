@@ -1,0 +1,197 @@
+String nome="";
+String cognome="";
+int selezione=0;
+color back=color(243,224,173);
+
+
+
+void barraInserimento(int x,int y,String s){
+  fill(255);
+  rect(x,y,300,40);
+  fill(55);
+  textSize(26);
+  text(s,x, y-40);
+}
+
+void tupilak(int x, int y,int col,String n,String c) {
+  fill(col);
+  
+  //punta
+  triangle(x, y, x-70, y+80, x+70, y+80);
+  if (c.length()>4){
+    fill(back);
+    triangle(x,y+30,x-40,y+80,x+40,y+80);
+    fill(col);
+    triangle(x,y+40,x-30,y+80,x+30,y+80);
+    }
+   if(c.length()>9){
+     fill(back);
+     triangle(x,y+65,x-15,y+80,x+15,y+80);
+     fill(col);
+     triangle(x,y+75,x-5,y+80,x+5,y+80);
+   }
+  
+  //occhi
+  fill(col);
+  if (n.length() % 2 == 0){
+  rect(x-70, y+90, 65, 80);
+  rect(x+5, y+90, 65, 80);
+  }
+  else{
+    quad(x-70, y+90,x-70, y+170,x-5, y+170,x-15, y+130);
+    quad(x+70, y+90,x+70, y+170,x+5, y+170,x+15, y+130);
+  }
+  
+  //pupille
+  fill(back);
+  rect(x-40,y+140,15,15);
+   rect(x+25,y+140,15,15);
+  
+  //bocca
+  fill(col);
+  rect(x-70, y+180, 140, 30);
+  rect(x-70, y+250, 140, 30);
+  
+  //denti
+  if (n.length()>2)
+  triangle(x-60,y+251,x-40,y+251,x-50,y+235);
+  if (n.length()>4)
+  triangle(x+60,y+251,x+40,y+251,x+50,y+235);
+  if (n.length()>6)
+  triangle(x-50,y+209,x-30,y+209,x-40,y+225);
+  if (n.length()>8)
+  triangle(x+50,y+209,x+30,y+209,x+40,y+225);
+  
+  //braccia
+  beginShape();
+  vertex(x-110, y+240);
+  vertex(x-110, y+350);
+  vertex(x-40, y+350);
+  vertex(x-40, y+300);
+  vertex(x-80, y+300);
+  vertex(x-80, y+240);
+  endShape(CLOSE);
+
+  beginShape();
+  vertex(x+110, y+240);
+  vertex(x+110, y+350);
+  vertex(x+40, y+350);
+  vertex(x+40, y+300);
+  vertex(x+80, y+300);
+  vertex(x+80, y+240);
+  endShape(CLOSE);
+
+  //occhi2
+  beginShape();
+  vertex(x-10,y+360);
+  vertex(x-10,y+410);
+  vertex(x-80,y+410);
+  if (c.length()>2) vertex(x-75,y+390);
+  if (c.length()>4) vertex(x-70,y+380);
+  if (c.length()>6) vertex(x-60,y+370);
+  if (c.length()>8) vertex(x-50,y+365);
+  endShape(CLOSE);
+  
+   beginShape();
+  vertex(x+10,y+360);
+  vertex(x+10,y+410);
+  vertex(x+80,y+410);
+  if (c.length()>2) vertex(x+75,y+390);
+  if (c.length()>4) vertex(x+70,y+380);
+  if (c.length()>6) vertex(x+60,y+370);
+  if (c.length()>8) vertex(x+50,y+365);
+  endShape(CLOSE);
+  
+  //pupille2
+  fill(back);
+  rect(x-40,y+390,15,15);
+   rect(x+25,y+390,15,15);
+  
+  //naso2
+  fill(col);
+  rect(x-20, y+420, 40, 20);
+  
+  //bocca2
+  rect(x-(80-c.length()*4), y+450, 160-c.length()*8, 40);
+  fill(back);
+  rect(x-(70-c.length()*4), y+460, 140-c.length()*8, 20);
+  
+  //braccia2
+  fill(col);
+  beginShape();
+  vertex(x-80, y+500);
+  vertex(x-80, y+570);
+  vertex(x-10, y+570);
+  vertex(x-10, y+530);
+  vertex(x-60, y+530);  
+  vertex(x-60, y+500);
+  endShape(CLOSE);
+
+  beginShape();
+  vertex(x+80, y+500);
+  vertex(x+80, y+570);
+  vertex(x+10, y+570);
+  vertex(x+10, y+530);
+  vertex(x+60, y+530);
+  vertex(x+60, y+500);
+  endShape(CLOSE);
+}
+
+
+
+//SELEZIONE DELLE CASELLE DI INSERIMENTO TESTO
+void mouseClicked(){
+  if (mouseX >= displayWidth/2+175 && mouseX <= displayWidth/2+175+300 && mouseY >=300  && mouseY <= 340){
+    selezione=0;}
+  if (mouseX >= displayWidth/2+175 && mouseX <= displayWidth/2+175+300 && mouseY >=500  && mouseY <= 540){
+    selezione=1;}
+  
+  
+}
+
+// IMPLEMENTAZINE DELL'INSERIMENTO TESTO
+void keyPressed() {
+ if (selezione==0){ 
+  if (keyCode == BACKSPACE) {
+    if (nome.length() > 0) {
+      nome = nome.substring(0, nome.length()-1);
+    }
+  } else if (keyCode == DELETE) {
+    nome = "";
+  } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+    nome = nome + key;
+  }
+   
+ }
+  
+ if (selezione==1){ 
+  if (keyCode == BACKSPACE) {
+    if (cognome.length() > 0) {
+      cognome = cognome.substring(0, cognome.length()-1);
+    }
+  } else if (keyCode == DELETE) {
+    cognome = "";
+  } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+    cognome = cognome + key;
+    }
+     
+}
+}
+
+//CREAZIONE SCHERMATA E INSERIMENTO FUNZIONI (SETUP/DRAW)
+
+void setup() {
+  size(displayWidth, displayHeight);
+}
+
+void draw() {
+  background(back);
+  noStroke();
+  if (selezione==0){rect(displayWidth/2+165,290,320,60);}
+  if (selezione==1){rect(displayWidth/2+165,490,320,60);}
+  tupilak(displayWidth/2-400, 80,55,nome,cognome);
+  barraInserimento(displayWidth/2+175,300,"Nome");
+  barraInserimento(displayWidth/2+175,500,"Cognome");
+  text(nome,displayWidth/2+180,308,300,37);
+  text(cognome,displayWidth/2+180,508,300,37);
+}
